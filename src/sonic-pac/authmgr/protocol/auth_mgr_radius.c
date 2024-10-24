@@ -141,8 +141,8 @@ RC_t authmgrRadiusResponseProcess (uint32 lIntIfNum, uint32 status,
 * @param    vlanName  @b{(input)} Vlan string.
 * @param    vlanId    @b{(output)} Vlan Id assigned.
 *
-* @returns  L7_SUCCESS
-* @returns  L7_FAILURE
+* @returns  SUCCESS
+* @returns  FAILURE
 *
 * @comments
 *
