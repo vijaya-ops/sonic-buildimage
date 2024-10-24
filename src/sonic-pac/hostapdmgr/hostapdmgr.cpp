@@ -1,5 +1,5 @@
 /*
- * Copyright 2019 Broadcom Inc.
+ * Copyright 2024 Broadcom Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -310,11 +310,11 @@ bool HostapdMgr::processHostapdConfigGlobalTblEvent(Selectable *tbl)
           {
             // dot1x disabled
             if (m_glbl_info.enable_auth) 
-            {
-              m_glbl_info.enable_auth = 0;
-              SWSS_LOG_NOTICE("setting m_glbl_info.enable_auth to 0");
-              
-              for (auto const& entry: m_intf_info) 
+			{
+			  m_glbl_info.enable_auth = 0;
+			  SWSS_LOG_NOTICE("setting m_glbl_info.enable_auth to 0");
+
+			  for (auto const& entry: m_intf_info) 
 			  {
 				SWSS_LOG_NOTICE("received false for intf %s capabilities %s ctrl_mode %s admin_status %d link_status %d, global_auth %d",
 					entry.first.c_str(), m_intf_info[key].capabilities.c_str(), m_intf_info[key].control_mode.c_str(),m_intf_info[key].admin_status,
@@ -330,9 +330,9 @@ bool HostapdMgr::processHostapdConfigGlobalTblEvent(Selectable *tbl)
 				}
 			  }
 
-              /* Update JSON */
-              informHostapd("deleted", interfaces);
-            }
+			  /* Update JSON */
+			  informHostapd("deleted", interfaces);
+			}
           }
         }
       }
