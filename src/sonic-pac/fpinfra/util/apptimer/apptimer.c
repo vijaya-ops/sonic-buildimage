@@ -31,18 +31,18 @@
 
 typedef struct appTmrCtrlBlk
 {
-   COMPONENT_IDS_t       compId;
+  COMPONENT_IDS_t       compId;
   uint32                bufferPoolId;
-   APP_TMR_GRAN_TYPE_t   type;
+  APP_TMR_GRAN_TYPE_t   type;
   void                     *semId;
-   sll_t                 tmrList;
-   sll_t                 wrapTmrList; /* SLL during expiry timer wrap */
+  sll_t                 tmrList;
+  sll_t                 wrapTmrList; /* SLL during expiry timer wrap */
 
   /* To store previous timetick when 
-     tick has come to process timers*/
+	 tick has come to process timers*/
   uint32                prevTime; 
   osapiTimerDescr_t        *pSysTimer;
-   app_tmr_dispatcher_fn dispatchFn;
+  app_tmr_dispatcher_fn dispatchFn;
   void                     *pParam;
   struct appTmrCtrlBlk     *pSelf;   /* For sanity Sakes */
 } appTmrCtrlBlk_t;
