@@ -18,10 +18,13 @@
 #ifndef MAB_SOCKET_H
 #define MAB_SOCKET_H
 
+#define MAB_INTF_STR_LEN 128
+#define MAB_CMD_STR_LEN  128
+
 typedef struct mab_pac_cmd_s
 {
-  char intf[128];
-  char cmd[128];
+  char intf[MAB_INTF_STR_LEN];
+  char cmd[MAB_CMD_STR_LEN];
   unsigned char mac_addr[6];
   unsigned int notif_event; 
 }mab_pac_cmd_t;
