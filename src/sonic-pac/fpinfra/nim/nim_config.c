@@ -374,7 +374,7 @@ RC_t nimConfigDefaultGet(nimIntfDescr_t *intfDescr, nimIntfConfig_t *defaultCfg)
 
   defaultCfg->addrType    = FD_NIM_MACTYPE;
 
-  strcpy(defaultCfg->ifAlias, FD_NIM_IF_ALIAS);
+  osapiStrncpySafe(defaultCfg->ifAlias, FD_NIM_IF_ALIAS, sizeof(defaultCfg->ifAlias));
 
   defaultCfg->trapState   = FD_NIM_TRAP_STATE;
 
@@ -644,7 +644,7 @@ RC_t nimConfigFileHdrCreate()
 
     myHdr->version = NIM_CFG_VER_CURRENT;
 
-    strncpy(myHdr->filename,NIM_CFG_FILE_NAME, MAX_FILENAME - 1);
+    osapiStrncpy(myHdr->filename,NIM_CFG_FILE_NAME, MAX_FILENAME - 1);
 
     myHdr->componentID =  NIM_COMPONENT_ID;
 
