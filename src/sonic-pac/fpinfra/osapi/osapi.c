@@ -225,14 +225,12 @@ void utilsFilenameStrip( char8 **fullPath)
     }
     return retptr;
   }
-
-  retptr = strncpy(dest, src, n);
-
-  /* the standard library doesn't ensure string termination, but this 'safe'
-   *    * function does
-   *       */
+ 
   if (n > 0)
+  {
+    memcpy(dest, src, n);
     *(dest+n-1) =  EOS;
+  }
 
   return retptr;
 }
