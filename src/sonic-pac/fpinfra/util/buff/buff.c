@@ -248,7 +248,7 @@ RC_t bufferPoolCreate (void * buffer_pool_addr,
   pool->addr =  buffer_pool_addr;
   pool->buf_size = buffer_size;
   pool->total = num_bufs;
-  strncpy(pool->descr,description, MAX_BUFFER_DESCR_SIZE);
+  osapiStrncpySafe(pool->descr,description, MAX_BUFFER_DESCR_SIZE);
   pool->descr[ MAX_BUFFER_DESCR_SIZE-1] = 0;
 
   pool->free_count = num_bufs;
