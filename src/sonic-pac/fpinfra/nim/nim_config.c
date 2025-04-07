@@ -644,7 +644,7 @@ RC_t nimConfigFileHdrCreate()
 
     myHdr->version = NIM_CFG_VER_CURRENT;
 
-    osapiStrncpy(myHdr->filename,NIM_CFG_FILE_NAME, MAX_FILENAME - 1);
+    osapiStrncpySafe(myHdr->filename,NIM_CFG_FILE_NAME, MAX_FILENAME - 1);
 
     myHdr->componentID =  NIM_COMPONENT_ID;
 
