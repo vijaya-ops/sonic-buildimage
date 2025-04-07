@@ -22,6 +22,7 @@
 #include "auth_mgr_struct.h"
 #include "pac_cfg_authmgr.h"
 #include "fpSonicUtils.h"
+#include "osapi.h"
 
 extern void pacCreateDeleteSocket(char *if_name, bool isCreate);
 extern authmgrCB_t *authmgrCB;
@@ -846,7 +847,7 @@ char8 * authmgrIntfIfNameGet(uint32 intIfNum)
   {
     LOGF (LOG_SEVERITY_INFO,
                    "Unable to get if name for intf %d", intIfNum);
-    strncpy(ifName, "Unknown", strlen("Unknown")+1);
+    osapiStrncpySafe(ifName, "Unknown", strlen("Unknown")+1);
   }
   return ifName; 
 }
