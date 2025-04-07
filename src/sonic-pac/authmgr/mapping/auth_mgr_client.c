@@ -23,6 +23,7 @@
 #include "pac_cfg_authmgr.h"
 #include "auth_mgr_vlan_db.h"
 #include "simapi.h"
+#include "osapi.h"
 
 extern authmgrCB_t *authmgrCB;
 
@@ -538,7 +539,7 @@ void authmgrClientInfoPopulate(authmgrLogicalPortInfo_t *logicalPortInfo,
     client_info->sessionTimeoutOper = 0;
   }
 
-  strcpy(client_info->userName, logicalPortInfo->client.authmgrUserName);
+  osapiStrncpySafe(client_info->userName, logicalPortInfo->client.authmgrUserName, strlen(logicalPortInfo->client.authmgrUserName)+1);
 
   client_info->userNameLen = logicalPortInfo->client.authmgrUserNameLength;
 

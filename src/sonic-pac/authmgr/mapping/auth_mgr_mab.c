@@ -17,6 +17,7 @@
 
 #include "auth_mgr_include.h"
 #include "auth_mgr_auth_method.h"
+#include "osapi.h"
 #include <unistd.h>
 
 /*********************************************************************
@@ -43,8 +44,8 @@ RC_t authmgrMabEventSend (uint32 intIfNum, uint32 event,  enetMacAddr_t *macAddr
 
   memset(&cmd_buf, 0, sizeof(cmd_buf));
 
-  strncpy(cmd_buf.intf, ctrl_ifname, sizeof(cmd_buf.intf)-1);
-  strncpy(cmd_buf.cmd, "event-notify", strlen("event-notify")+1);
+  osapiStrncpySafe(cmd_buf.intf, ctrl_ifname, sizeof(cmd_buf.intf)-1);
+  osapiStrncpySafe(cmd_buf.cmd, "event-notify", strlen("event-notify")+1);
 
   memcpy(cmd_buf.mac_addr, macAddr->addr, 6);
 
@@ -110,8 +111,8 @@ RC_t authmgrMabIntfAdminModeGet (uint32 intIfNum,  BOOL *enabled)
 
   memset(&cmd_buf, 0, sizeof(cmd_buf));
 
-  strncpy(cmd_buf.intf, ctrl_ifname, sizeof(cmd_buf.intf)-1);
-  strncpy(cmd_buf.cmd, "PING", strlen("PING")+1);
+  osapiStrncpySafe(cmd_buf.intf, ctrl_ifname, sizeof(cmd_buf.intf)-1);
+  osapiStrncpySafe(cmd_buf.cmd, "PING", strlen("PING")+1);
 
   AUTHMGR_EVENT_TRACE (AUTHMGR_TRACE_EVENTS, intIfNum,
   "authmgrMabDataSend PING for %s start \n", ctrl_ifname);
