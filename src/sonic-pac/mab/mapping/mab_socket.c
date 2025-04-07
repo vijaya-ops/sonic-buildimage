@@ -26,6 +26,7 @@
 #include <arpa/inet.h>
 #include "mab_api.h"
 #include "mab_include.h"
+#include "osapi.h"
 #include "mab_socket.h"
 #include "fpSonicUtils.h"
 
@@ -55,11 +56,11 @@ int mab_cmd_ping(unsigned int intf, char *resp)
 
   if (status)
   {
-    strncpy(resp, "PONG", strlen("PONG")+1);
+    osapiStrncpySafe(resp, "PONG", strlen("PONG")+1);
   }
   else
   {
-    strncpy(resp, "NO RESP", strlen("NO RESP")+1);
+    osapiStrncpySafe(resp, "NO RESP", strlen("NO RESP")+1);
   }
 
   return 0;
@@ -76,11 +77,11 @@ int mab_cmd_event_notify(unsigned int intf, unsigned int event , unsigned char *
 
   if (!rc)
   {
-    strncpy(resp, "OK", strlen("OK")+1);
+    osapiStrncpySafe(resp, "OK", strlen("OK")+1);
   }
   else
   {
-    strncpy(resp, "FAIL", strlen("FAIL")+1);
+    osapiStrncpySafe(resp, "FAIL", strlen("FAIL")+1);
   }
 
   return 0;
@@ -123,7 +124,7 @@ MAB_COPY(CMD)
   }
   else
   {
-    strncpy(resp, "unknown cmd", strlen("unknown cmd")+1);
+    osapiStrncpySafe(resp, "unknown cmd", strlen("unknown cmd")+1);
   }
 
   return 0;

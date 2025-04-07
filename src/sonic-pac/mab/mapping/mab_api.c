@@ -16,6 +16,7 @@
 
 #include "auth_mgr_api.h"
 #include "mab_include.h"
+#include "osapi.h"
 #include "mab_vlan.h"
 #include "mab_struct.h"
 
@@ -342,26 +343,26 @@ RC_t mabRadiusServerUpdate(uint32 cmd, const char *radius_type,
   msg.cmd = cmd;
 
   if (radius_type)
-    strncpy(msg.cmd_data.server.radius_type, radius_type, sizeof(msg.cmd_data.server.radius_type)-1);
+    osapiStrncpySafe(msg.cmd_data.server.radius_type, radius_type, sizeof(msg.cmd_data.server.radius_type)-1);
 
   if (serv_addr)
-    strncpy(msg.cmd_data.server.serv_addr, serv_addr, sizeof(msg.cmd_data.server.serv_addr)-1);
+    osapiStrncpySafe(msg.cmd_data.server.serv_addr, serv_addr, sizeof(msg.cmd_data.server.serv_addr)-1);
 
   if (serv_port)
   {
-    strncpy(msg.cmd_data.server.serv_port, serv_port, sizeof(msg.cmd_data.server.serv_port)-1);
+    osapiStrncpySafe(msg.cmd_data.server.serv_port, serv_port, sizeof(msg.cmd_data.server.serv_port)-1);
     MAB_EVENT_TRACE("%s: cfg update for server %s port %s", __FUNCTION__, serv_addr, serv_port);
   }
 
   if (serv_priority)
   {
-    strncpy(msg.cmd_data.server.serv_priority, serv_priority, sizeof(msg.cmd_data.server.serv_priority)-1);
+    osapiStrncpySafe(msg.cmd_data.server.serv_priority, serv_priority, sizeof(msg.cmd_data.server.serv_priority)-1);
     MAB_EVENT_TRACE("%s: cfg update for server %s priority %s", __FUNCTION__, serv_addr, serv_priority);
   }
 
   if (radius_key)
   {
-    strncpy(msg.cmd_data.server.key.key, radius_key, sizeof(msg.cmd_data.server.key.key)-1);
+    osapiStrncpySafe(msg.cmd_data.server.key.key, radius_key, sizeof(msg.cmd_data.server.key.key)-1);
     msg.cmd_data.server.key.key_len = strlen(radius_key);
     MAB_EVENT_TRACE("%s: cfg update for server %s key len %d", __FUNCTION__, serv_addr, (unsigned int)strlen(radius_key));
   }

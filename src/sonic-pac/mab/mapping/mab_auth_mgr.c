@@ -21,6 +21,7 @@
 #include "mab_include.h"
 #include "radius_attr_parse.h"
 #include "packet.h"
+#include "osapi.h"
 #include "auth_mgr_exports.h"
 #include "fpSonicUtils.h"
 
@@ -129,9 +130,9 @@ STATUS_COPY(AUTH_SUCCESS)
 	{
 		memcpy(reply->info.authInfo.addr, addr, 6);
 	}
-	strncpy (reply->method, "mab", sizeof(reply->method)-1);
+	osapiStrncpySafe (reply->method, "mab", sizeof(reply->method)-1);
 	reply->status = AUTH_SUCCESS; 
-	strncpy (reply->intf, intf, sizeof(reply->intf)-1);
+	osapiStrncpySafe (reply->intf, intf, sizeof(reply->intf)-1);
 
 	/* copy user details */
 	memcpy(reply->info.authInfo.userName, clientInfo->info.authInfo.authmgrUserName,
@@ -139,7 +140,7 @@ STATUS_COPY(AUTH_SUCCESS)
 	reply->info.authInfo.userNameLength = strlen(clientInfo->info.authInfo.authmgrUserName);
 
 	/* copy bam used for authentication */
-	strncpy(reply->info.authInfo.bam_used, "radius", sizeof(reply->info.authInfo.bam_used)-1);
+	osapiStrncpySafe(reply->info.authInfo.bam_used, "radius", sizeof(reply->info.authInfo.bam_used)-1);
 
 	/* copy all the attributes received from radius/ or backend method */
         memcpy(&reply->info.authInfo.attrInfo, &clientInfo->info.authInfo.attrInfo, sizeof(attrInfo_t));
@@ -156,9 +157,9 @@ STATUS_COPY(AUTH_FAIL)
 	{
 			memcpy(reply->info.authInfo.addr, addr, 6);
 	}
-	strncpy (reply->method, "mab", sizeof(reply->method)-1);
+	osapiStrncpySafe (reply->method, "mab", sizeof(reply->method)-1);
 	reply->status = AUTH_FAIL; 
-	strncpy (reply->intf, intf, sizeof(reply->intf)-1);
+	osapiStrncpySafe (reply->intf, intf, sizeof(reply->intf)-1);
 
 	/* copy user details */
 	memcpy(reply->info.authInfo.userName, clientInfo->info.authInfo.authmgrUserName,
@@ -176,9 +177,9 @@ STATUS_COPY(AUTH_TIMEOUT)
 	{
 			memcpy(reply->info.authInfo.addr, addr, 6);
 	}
-	strncpy (reply->method, "mab", sizeof(reply->method)-1);
+	osapiStrncpySafe (reply->method, "mab", sizeof(reply->method)-1);
 	reply->status = AUTH_TIMEOUT; 
-	strncpy (reply->intf, intf, sizeof(reply->intf)-1);
+	osapiStrncpySafe (reply->intf, intf, sizeof(reply->intf)-1);
 
 	/* copy user details */
 	memcpy(reply->info.authInfo.userName, clientInfo->info.authInfo.authmgrUserName,
@@ -196,9 +197,9 @@ STATUS_COPY(AUTH_SERVER_COMM_FAILURE)
 	{
 			memcpy(reply->info.authInfo.addr, addr, 6);
 	}
-	strncpy (reply->method, "mab", sizeof(reply->method)-1);
+	osapiStrncpySafe (reply->method, "mab", sizeof(reply->method)-1);
 	reply->status = AUTH_SERVER_COMM_FAILURE; 
-	strncpy (reply->intf, intf, sizeof(reply->intf)-1);
+	osapiStrncpySafe (reply->intf, intf, sizeof(reply->intf)-1);
 
 	/* copy user details */
 	memcpy(reply->info.authInfo.userName, clientInfo->info.authInfo.authmgrUserName,
@@ -216,18 +217,18 @@ STATUS_COPY(METHOD_CHANGE)
 	{
 			memcpy(reply->info.authInfo.addr, addr, 6);
 	}
-	strncpy (reply->method, "mab", sizeof(reply->method)-1);
+	osapiStrncpySafe (reply->method, "mab", sizeof(reply->method)-1);
 	reply->status = METHOD_CHANGE; 
 
-	strncpy (reply->intf, intf, sizeof(reply->intf)-1);
+	osapiStrncpySafe (reply->intf, intf, sizeof(reply->intf)-1);
 
   if (clientInfo->info.enableStatus)
   {
-    strncpy (reply->info.enableStatus, "enable", strlen("enable")+1);
+    osapiStrncpySafe (reply->info.enableStatus, "enable", strlen("enable")+1);
   }
   else
   {
-    strncpy (reply->info.enableStatus, "disable", strlen("disable")+1);
+    osapiStrncpySafe (reply->info.enableStatus, "disable", strlen("disable")+1);
   }
 
 }
@@ -241,9 +242,9 @@ STATUS_COPY(RADIUS_SERVERS_DEAD)
 	{
 			memcpy(reply->info.authInfo.addr, addr, 6);
 	}
-	strncpy (reply->method, "mab", sizeof(reply->method)-1);
+	osapiStrncpySafe (reply->method, "mab", sizeof(reply->method)-1);
 	reply->status = RADIUS_SERVERS_DEAD; 
-	strncpy (reply->intf, intf, sizeof(reply->intf)-1);
+	osapiStrncpySafe (reply->intf, intf, sizeof(reply->intf)-1);
 
 	/* copy user details */
 	memcpy(reply->info.authInfo.userName, clientInfo->info.authInfo.authmgrUserName,
