@@ -20,6 +20,7 @@
 #include <stdbool.h>
 #include <unistd.h>
 
+#include "osapi.h"
 #include "mab_include.h"
 #include "auth_mgr_exports.h"
 #include "radius_attr_parse.h"
@@ -2120,21 +2121,21 @@ RC_t mabRadiusChangeHandle(mabRadiusServer_t *info)
     case RADIUS_MAB_SERVER_MODIFY:
       if (RADIUS_MAB_SERVER_MODIFY == info->cmd)
       {
-        strncpy(req.cmd, "server-delete", strlen("server-delete")+1);
+        osapiStrncpySafe(req.cmd, "server-delete", strlen("server-delete")+1);
         req.data = mabBlock->rad_cxt;
         radius_mab_cmd_req_send(mabBlock->send_fd, (char *)&req, sizeof(req));
       }
 
       memset(&req, 0, sizeof(req));
 
-      strncpy(req.cmd, "server-add", strlen("server-add")+1);
+      osapiStrncpySafe(req.cmd, "server-add", strlen("server-add")+1);
       req.data = mabBlock->rad_cxt;
       memcpy(&req.cmd_data.server, &info->cmd_data.server, sizeof(mab_radius_server_t));
       radius_mab_cmd_req_send(mabBlock->send_fd,(char *)&req, sizeof(req)); 
       break;
 
     case RADIUS_MAB_SERVER_DELETE:
-      strncpy(req.cmd, "server-delete", strlen("server-delete")+1);
+      osapiStrncpySafe(req.cmd, "server-delete", strlen("server-delete")+1);
       req.data = mabBlock->rad_cxt;
       memcpy(&req.cmd_data.server, &info->cmd_data.server, sizeof(mab_radius_server_t));
       radius_mab_cmd_req_send(mabBlock->send_fd, (char *)&req, sizeof(req)); 
@@ -2172,7 +2173,7 @@ RC_t mabRadiusChangeHandle(mabRadiusServer_t *info)
       break;
 
     case RADIUS_MAB_SERVERS_RELOAD:
-      strncpy(req.cmd, "server-reload", strlen("server-reload")+1);
+      osapiStrncpySafe(req.cmd, "server-reload", strlen("server-reload")+1);
       req.data = mabBlock->rad_cxt;
       radius_mab_cmd_req_send(mabBlock->send_fd, (char *)&req, sizeof(req)); 
       break;
