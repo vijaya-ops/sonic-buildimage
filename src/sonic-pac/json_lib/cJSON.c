@@ -404,7 +404,8 @@ CJSON_PUBLIC(char*) cJSON_SetValuestring(cJSON *object, const char *valuestring)
     }
     if (strlen(valuestring) <= strlen(object->valuestring))
     {
-        strcpy(object->valuestring, valuestring);
+        memcpy(object->valuestring, valuestring, strlen(valuestring));
+        object->valuestring[strlen(valuestring)] = '\0';
         return object->valuestring;
     }
     copy = (char*) cJSON_strdup((const unsigned char*)valuestring, &global_hooks);
@@ -914,7 +915,7 @@ static cJSON_bool print_string_ptr(const unsigned char * const input, printbuffe
         {
             return false;
         }
-        strcpy((char*)output, "\"\"");
+        (char*)output[0]  = "\"\"";
 
         return true;
     }
@@ -1374,7 +1375,8 @@ static cJSON_bool print_value(const cJSON * const item, printbuffer * const outp
             {
                 return false;
             }
-            strcpy((char*)output, "null");
+            memcpy((char*)output, "null", strlen("null"));
+            (char*)output[strlen("null")] = "\0";
             return true;
 
         case cJSON_False:
@@ -1383,7 +1385,8 @@ static cJSON_bool print_value(const cJSON * const item, printbuffer * const outp
             {
                 return false;
             }
-            strcpy((char*)output, "false");
+            memcpy((char*)output, "false", strlen("false"));
+            (char*)output[strlen("false")] = "\0";
             return true;
 
         case cJSON_True:
@@ -1392,7 +1395,8 @@ static cJSON_bool print_value(const cJSON * const item, printbuffer * const outp
             {
                 return false;
             }
-            strcpy((char*)output, "true");
+            memcpy((char*)output, "true", strlen("true"));
+            (char*)output[strlen("true")] = "\0";
             return true;
 
         case cJSON_Number:
